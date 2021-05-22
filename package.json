@@ -1,0 +1,26 @@
+{
+  "name": "rpt27-carson-service-proxy",
+  "version": "1.0.0",
+  "description": "johanna-hard fec airbnb proxy",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "server": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Johanna-Hard/carson-proxy.git"
+  },
+  "author": "carson weinand",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Johanna-Hard/carson-proxy/issues"
+  },
+  "homepage": "https://github.com/Johanna-Hard/carson-proxy#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^2.0.0",
+    "nodemon": "^2.0.7"
+  }
+}
