@@ -1,4 +1,6 @@
 const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const { createProxyMiddleware } = require("http-proxy-middleware");
@@ -13,21 +15,23 @@ app.use(express.static("client/dist"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(
-  "/photos",
-  createProxyMiddleware({ target: Photos, changeOrigin: true })
-);
+app.use(cors());
 
-app.use(
-  "/description",
-  createProxyMiddleware({ target: Description, changeOrigin: true })
-);
+// Logging
+app.use(morgan("dev"));
+
+// Proxy Endpoints
+// app.use(
+//   "/photos",
+//   createProxyMiddleware({ target: Photos, changeOrigin: true })
+// );
 
 app.use(
   "/calendarwidget",
   createProxyMiddleware({ target: CalendarWidget, changeOrigin: true })
 );
 
+// Establish server
 app.listen(ProxyPort, () => {
   console.log(`Proxy server successfully started at ${ProxyPort}`);
 });
