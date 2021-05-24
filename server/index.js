@@ -4,6 +4,7 @@ const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const { createProxyMiddleware } = require("http-proxy-middleware");
+const path = require("path");
 
 const ProxyPort = 2000;
 
@@ -13,23 +14,16 @@ const CalendarWidget = "http://localhost:2002";
 
 app.use(express.static("client/dist"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
 
 // Logging
 app.use(morgan("dev"));
 
-// Proxy Endpoints
-// app.use(
-//   "/photos",
-//   createProxyMiddleware({ target: Photos, changeOrigin: true })
-// );
-
-app.use(
-  "/calendarwidget",
-  createProxyMiddleware({ target: CalendarWidget, changeOrigin: true })
-);
+app.get("*/rooms/:listingId", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+});
 
 // Establish server
 app.listen(ProxyPort, () => {
